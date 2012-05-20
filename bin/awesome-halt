@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "awesome.quit()" | awesome-client &
+ sudo /etc/init.d/gdm3 stop &
+ sudo halt &

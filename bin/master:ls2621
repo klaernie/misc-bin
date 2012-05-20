@@ -1,0 +1,8 @@
+#!/bin/bash
+echo -e '\033]0;ls2621:master\007'
+ssh -N ls2621-master -v
+if [[ $? -ne 0 ]]
+then 
+	echo -e "###################################\n# Connection setup failed\n###################################"
+	sleep 10
+fi
