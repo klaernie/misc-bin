@@ -1,2 +1,2 @@
 #!/bin/bash
-gnome-terminal -t synergys -e "synergys -f"
+gnome-terminal -t synergys -e "synergys -f --restart"
