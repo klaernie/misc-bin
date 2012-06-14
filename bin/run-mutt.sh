@@ -7,6 +7,11 @@ else
 	then
 		gnome-terminal -t mutt -e "ssh mainframe-vpn -t screen /bin/zsh -i -c mutt"
 	else
-		gnome-terminal -t mutt -e "ssh mainframe -t screen /bin/zsh -i -c mutt"
+		if [[ "`hostname`" = "sapdeb2" ]]
+		then
+			gnome-terminal -t mutt -e "ssh mainframe-vpn -v -t screen /bin/zsh -i -c mutt"
+		else
+			gnome-terminal -t mutt -e "ssh mainframe -t screen /bin/zsh -i -c mutt"
+		fi
 	fi
 fi
