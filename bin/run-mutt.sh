@@ -9,9 +9,9 @@ case "`hostname`" in
 	eliza)
 			if host vpn.ak-online.be 2>&1 >/dev/null
 			then
-				vpn=false
-			else
 				vpn=true
+			else
+				vpn=false
 			fi
 		;;
 	sapdeb2|mia)
@@ -25,7 +25,7 @@ then
 else
 	if [[ "$ssh" = "true" ]]
 	then
-		gnome-terminal -t mutt -e "ssh mainframe     -t 'screen -c .screenrc.mutt -S mutt -dRR'"
+		gnome-terminal -t mutt -e "ssh mainframe -t 'screen -c .screenrc.mutt -S mutt -dRR'"
 	else
 		gnome-terminal -t mutt -e "screen -c .screenrc.mutt -S mutt -dRR"
 	fi
