@@ -1,17 +1,32 @@
 #!/bin/bash -x
-if [[ "`hostname`" = "mainframe" ]]
+
+ssh=true
+case "`hostname`" in
+	mainframe)
+			vpn=false
+			ssh=false
+		;;
+	eliza)
+			if host vpn.ak-online.be 2>&1 >/dev/null
+			then
+				vpn=false
+			else
+				vpn=true
+			fi
+		;;
+	sapdeb2|mia)
+			vpn=true
+		;;
+esac
+
+if [[ "$vpn" = "true" ]]
 then
-	gnome-terminal -t mutt -e '/bin/zsh -i -c mutt'
+	gnome-terminal -t mutt -e "ssh mainframe-vpn -t 'screen -c .screenrc.mutt -S mutt -dRR'"
 else
-	if host vpn.ak-online.be 2>&1 >/dev/null 
+	if [[ "$ssh" = "true" ]]
 	then
-		gnome-terminal -t mutt -e "ssh mainframe-vpn -t screen /bin/zsh -i -c mutt"
+		gnome-terminal -t mutt -e "ssh mainframe     -t 'screen -c .screenrc.mutt -S mutt -dRR'"
 	else
-		if [[ "`hostname`" = "sapdeb2" ]]
-		then
-			gnome-terminal -t mutt -e "ssh mainframe-vpn -t screen /bin/zsh -i -c mutt"
-		else
-			gnome-terminal -t mutt -e "ssh mainframe -t screen /bin/zsh -i -c mutt"
-		fi
+		gnome-terminal -t mutt -e "screen -c .screenrc.mutt -S mutt -dRR"
 	fi
 fi
