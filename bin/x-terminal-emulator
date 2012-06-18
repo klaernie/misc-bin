@@ -1,0 +1,3 @@
+#!/bin/bash
+export SHELL=screen
+exec /etc/alternatives/x-terminal-emulator
