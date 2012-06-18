@@ -1,2 +1,13 @@
 #!/bin/bash
-gnome-terminal -t synergys -e "synergys -f --restart"
+
+xterm=$(readlink /etc/alternatives/x-terminal-emulator)
+case "$xterm" in
+ /usr/bin/urxvt)
+        exec_line="urxvt -title synergys -e"
+        ;;
+ /usr/bin/gnome-terminal.wrapper)
+        exec_line="gnome-terminal -t synergys -x"
+        ;;
+esac
+
+$exec_line synergys -f --restart
