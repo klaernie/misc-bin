@@ -19,14 +19,25 @@ case "`hostname`" in
 		;;
 esac
 
+xterm=$(readlink /etc/alternatives/x-terminal-emulator)
+case "$xterm" in
+ /usr/bin/urxvt)
+	exec_line="urxvt -title mutt -e"
+	;;
+ /usr/bin/gnome-terminal.wrapper)
+	exec_line="gnome-terminal -t mutt -x"
+	;;
+esac
+
+
 if [[ "$vpn" = "true" ]]
 then
-	gnome-terminal -t mutt -e "ssh mainframe-vpn -t 'screen -c .screenrc.mutt -S mutt -dRR'"
+	$exec_line ssh mainframe-vpn -t 'screen -c .screenrc.mutt -S mutt -dRR'
 else
 	if [[ "$ssh" = "true" ]]
 	then
-		gnome-terminal -t mutt -e "ssh mainframe -t 'screen -c .screenrc.mutt -S mutt -dRR'"
+		$exec_line ssh mainframe -t 'screen -c .screenrc.mutt -S mutt -dRR'
 	else
-		gnome-terminal -t mutt -e "screen -c .screenrc.mutt -S mutt -dRR"
+		$exec_line screen -c .screenrc.mutt -S mutt -dRR
 	fi
 fi
