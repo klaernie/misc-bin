@@ -29,6 +29,10 @@ case "$xterm" in
 	;;
 esac
 
+if [[ -z "$DISPLAY" ]]
+then
+	unset exec_line
+fi
 
 if [[ "$vpn" = "true" ]]
 then
