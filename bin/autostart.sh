@@ -6,6 +6,7 @@ then
 	css &
 	remmina &
 	mspidgin &
+	VBoxManage startvm SAP-Windows&
 else
 	synS &
 	pidgin &
