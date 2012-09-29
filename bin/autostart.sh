@@ -1,6 +1,5 @@
 #!/bin/bash
 chromium &
-synS &
 if [ `hostname` == "sapdeb2" ]
 then
 	LTS &
@@ -8,5 +7,6 @@ then
 	remmina &
 	mspidgin &
 else
+	synS &
 	pidgin &
 fi
