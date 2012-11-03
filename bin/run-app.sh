@@ -14,7 +14,7 @@ case "`hostname`" in
 			vpn=false
 			ssh=false
 		;;
-	eliza)
+	sapdeb2|eliza)
 			if host vpn.ak-online.be 2>&1 >/dev/null
 			then
 				vpn=true
@@ -22,7 +22,7 @@ case "`hostname`" in
 				vpn=false
 			fi
 		;;
-	sapdeb2|mia)
+	mia)
 			vpn=true
 		;;
 esac
