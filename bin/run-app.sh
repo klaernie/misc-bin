@@ -14,7 +14,7 @@ case "`hostname`" in
 			vpn=false
 			ssh=false
 		;;
-	eliza)
+	sapdeb2|eliza)
 			if host vpn.ak-online.be 2>&1 >/dev/null
 			then
 				vpn=true
@@ -22,24 +22,24 @@ case "`hostname`" in
 				vpn=false
 			fi
 		;;
-	sapdeb2|mia)
+	mia)
 			vpn=true
 		;;
-esac
-
-xterm=$(readlink /etc/alternatives/x-terminal-emulator)
-case "$xterm" in
- /usr/bin/urxvt)
-	exec_line="urxvt -title $APP -e"
-	;;
- /usr/bin/gnome-terminal.wrapper)
-	exec_line="gnome-terminal -t $APP -x"
-	;;
 esac
 
 if [[ -z "$DISPLAY" ]]
 then
 	unset exec_line
+else
+	xterm=$(readlink /etc/alternatives/x-terminal-emulator)
+	case "$xterm" in
+	 /usr/bin/urxvt)
+		exec_line="urxvt -title $APP -e"
+		;;
+	 /usr/bin/gnome-terminal.wrapper)
+		exec_line="gnome-terminal -t $APP -x"
+		;;
+	esac
 fi
 
 if [[ "$vpn" = "true" ]]
