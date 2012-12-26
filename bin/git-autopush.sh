@@ -11,13 +11,19 @@ to the default or remote repo.
 OPTIONS:
  -o Overwrite any existing post-commit hook
  -r Remote repo
+ -s install serverside hook to autocheckout
 EOF
 }
 params="$@"
 
 OVERWRITE=0
 
-while getopts  "hor:" OPTION
+HOOKS_FOLDER=.git/hooks
+POST_COMMIT=$HOOKS_FOLDER/post-commit
+POST_UPDATE=$HOOKS_FOLDER/post-update
+HOOK=$POST_COMMIT
+
+while getopts  "hors:" OPTION
 do
   case $OPTION in
     h)
@@ -30,26 +36,31 @@ do
     r)
       REMOTEREPO="$OPTARG"
     ;;
+    s)
+      SERVERHOOK=1
+      HOOK=$POST_UPDATE
+    ;;
   esac
 done
 shift $(( $OPTIND - 1 ))
 
-HOOKS_FOLDER=.git/hooks
-POST_COMMIT=$HOOKS_FOLDER/post-commit
-
 if [ -d $HOOKS_FOLDER ]; then
-  if [ -f $POST_COMMIT ] && [ $OVERWRITE -eq 0 ]; then
-    echo "Post commit hook already exits, please add 'git push' manually in .git/hooks/post-commit"
+  if [ -f $HOOK ] && [ $OVERWRITE -eq 0 ]; then
+    echo "hook already exits, please add it manually in $HOOK"
     exit 1
   fi
   if [ $OVERWRITE -eq 1 ]; then
-    mv $POST_COMMIT "$POST_COMMIT.bak"
-    echo "moved old hook to $POST_COMMIT.bak"
+    mv $HOOK "$HOOK.bak"
+    echo "moved old hook to $HOOK.bak"
   fi
-  echo "git push $REMOTEREPO" > $POST_COMMIT
-  chmod 755 $POST_COMMIT
+  if [ $SERVERHOOK -eq 0 ]; then
+    echo "git push $REMOTEREPO" > $HOOK
+  else
+    echo "git checkout -f master" > $HOOK
+  fi
+  chmod 755 $HOOK
   REPOSITORY_BASENAME=$(basename "$PWD")
-  echo "added auto commit to $REPOSITORY_BASENAME"
+  echo "added hook to $REPOSITORY_BASENAME"
   exit 0
 else
   echo "This command must be run in the root of a Git repository."
