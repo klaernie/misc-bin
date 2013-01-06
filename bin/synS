@@ -10,4 +10,4 @@ case "$xterm" in
         ;;
 esac
 
-$exec_line synergys -f --restart
+$exec_line screen -S synergys synergys -f --restart
