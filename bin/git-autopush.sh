@@ -22,6 +22,7 @@ HOOKS_FOLDER=.git/hooks
 POST_COMMIT=$HOOKS_FOLDER/post-commit
 POST_UPDATE=$HOOKS_FOLDER/post-update
 HOOK=$POST_COMMIT
+SERVERHOOK=0
 
 while getopts  "hors:" OPTION
 do
