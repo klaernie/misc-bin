@@ -1,0 +1,11 @@
+#!/bin/bash -x
+if [[ $TERM = screen* ]]; then
+	# Use these two for GNU Screen:
+	echo -n $'\033k'$(basename $0)$'\033'\\
+	echo -n $'\033]0;'$1$'\a'
+
+elif [[ $TERM == "xterm" || $TERM == "rxvt" ]]; then
+	# Use this one instead for XTerms:
+	echo -n $'\033]0;'$(basename $0):$*$'\a'
+fi
+vim -c "set notitle" -c ":help $1|wincmd T|tabn|q"
