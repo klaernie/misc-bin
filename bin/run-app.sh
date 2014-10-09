@@ -10,7 +10,7 @@ fi
 
 ssh=true
 case "`hostname`" in
-	mainframe)
+	debs|mainframe)
 			vpn=false
 			ssh=false
 		;;
