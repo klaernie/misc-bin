@@ -25,6 +25,10 @@ case "`hostname`" in
 	mia)
 			vpn=true
 		;;
+	ls2621|ls2622|spwdfvml1218|spwdfvml1219)
+			vpn=false
+			ssh=false
+		;;
 esac
 
 if [[ -z "$DISPLAY" ]]
