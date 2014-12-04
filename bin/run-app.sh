@@ -45,14 +45,14 @@ fi
 if [[ "$vpn" = "true" ]]
 then
 	which notify-send >/dev/null 2>&1 && notify-send -t 2000 "$APP:" "starting via VPN"
-	$exec_line ssh mainframe-vpn -t "screen -c .screenrc.$APP -S $APP -dRR"
+	exec $exec_line ssh mainframe-vpn -t "screen -c .screenrc.$APP -S $APP -dRR $@"
 else
 	if [[ "$ssh" = "true" ]]
 	then
 		which notify-send >/dev/null 2>&1 && notify-send -t 2000 "$APP:" "starting via plain SSH"
-		$exec_line ssh mainframe -t "screen -c .screenrc.$APP -S $APP -dRR"
+		exec $exec_line ssh mainframe -t "screen -c .screenrc.$APP -S $APP -dRR $@"
 	else
 		which notify-send >/dev/null 2>&1 && notify-send -t 2000 "$APP:" "running directly"
-		$exec_line screen -c .screenrc.$APP -S $APP -dRR
+		exec $exec_line screen -c .screenrc.$APP -S $APP -dRR $@
 	fi
 fi
