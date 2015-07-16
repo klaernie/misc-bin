@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 if [[ "$0" =~ run-([a-z]+).sh ]]
-then 
+then
 	APP=${BASH_REMATCH[1]}
 else
 	APP=mutt
@@ -37,12 +37,12 @@ then
 else
 	xterm=$(readlink /etc/alternatives/x-terminal-emulator)
 	case "$xterm" in
-	 /usr/bin/urxvt)
-		exec_line="urxvt -title $APP -e"
-		;;
-	 /usr/bin/gnome-terminal.wrapper)
-		exec_line="gnome-terminal -t $APP -x"
-		;;
+		/usr/bin/urxvt)
+			exec_line="urxvt -title $APP -e"
+			;;
+		/usr/bin/gnome-terminal.wrapper)
+			exec_line="gnome-terminal -t $APP -x"
+			;;
 	esac
 fi
 
