@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 if [[ "$0" =~ run-([a-z]+).sh ]]
-then 
+then
 	APP=${BASH_REMATCH[1]}
 else
 	APP=mutt
@@ -25,6 +25,10 @@ case "`hostname`" in
 	mia)
 			vpn=true
 		;;
+	ls2621|ls2622|spwdfvml1218|spwdfvml1219)
+			vpn=false
+			ssh=false
+		;;
 esac
 
 if [[ -z "$DISPLAY" ]]
@@ -33,12 +37,12 @@ then
 else
 	xterm=$(readlink /etc/alternatives/x-terminal-emulator)
 	case "$xterm" in
-	 /usr/bin/urxvt)
-		exec_line="urxvt -title $APP -e"
-		;;
-	 /usr/bin/gnome-terminal.wrapper)
-		exec_line="gnome-terminal -t $APP -x"
-		;;
+		/usr/bin/urxvt)
+			exec_line="urxvt -title $APP -e"
+			;;
+		/usr/bin/gnome-terminal.wrapper)
+			exec_line="gnome-terminal -t $APP -x"
+			;;
 	esac
 fi
 
