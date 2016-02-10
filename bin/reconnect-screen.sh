@@ -16,4 +16,10 @@ if [[ -n "$SSH_AUTH_SOCK" ]]; then
 	echo "done"
 fi
 
-exec screen -RD -S "$1"
+if [[ -r "$HOME/.screenrc.$1" ]]; then
+	config="-c $HOME/.screenrc.$1"
+fi
+
+echo "starting screen in 3sec"
+sleep 3
+exec screen -RD ${config} -S "$1"
