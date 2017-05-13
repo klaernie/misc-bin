@@ -38,7 +38,7 @@ else
 	xterm=$(readlink /etc/alternatives/x-terminal-emulator)
 	case "$xterm" in
 		/usr/bin/urxvt)
-			exec_line="urxvt -title $APP -e"
+			exec_line="urxvt -name $APP -e"
 			;;
 		/usr/bin/gnome-terminal.wrapper)
 			exec_line="gnome-terminal -t $APP -x"
