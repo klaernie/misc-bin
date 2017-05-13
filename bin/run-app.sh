@@ -10,9 +10,13 @@ fi
 
 ssh=true
 case "`hostname`" in
-	debs|mainframe)
+	debs)
 			vpn=false
 			ssh=false
+		;;
+	mainframe)
+			vpn=false
+			ssh=true
 		;;
 	sapdeb2|eliza)
 			if host vpn.ak-online.be 2>&1 >/dev/null
@@ -49,12 +53,12 @@ fi
 if [[ "$vpn" = "true" ]]
 then
 	which notify-send >/dev/null 2>&1 && notify-send -t 2000 "$APP:" "starting via VPN"
-	exec $exec_line ssh mainframe-vpn -t "screen -c .screenrc.$APP -S $APP -dRR $@"
+	exec $exec_line ssh debs.ak-online.be -t "screen -c .screenrc.$APP -S $APP -dRR $@"
 else
 	if [[ "$ssh" = "true" ]]
 	then
 		which notify-send >/dev/null 2>&1 && notify-send -t 2000 "$APP:" "starting via plain SSH"
-		exec $exec_line ssh mainframe -t "screen -c .screenrc.$APP -S $APP -dRR $@"
+		exec $exec_line ssh debs.ak-online.be -t "screen -c .screenrc.$APP -S $APP -dRR $@"
 	else
 		which notify-send >/dev/null 2>&1 && notify-send -t 2000 "$APP:" "running directly"
 		exec $exec_line screen -c .screenrc.$APP -S $APP -dRR $@
