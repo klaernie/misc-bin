@@ -1,0 +1,3 @@
+#!/bin/bash
+unset $(env |grep -i proxy | cut -d= -f1)
+"$@"
