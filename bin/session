@@ -1,0 +1,3 @@
+#!/bin/bash
+export TERM=xterm-256color
+ssh $1 -t bash bin/reconnect-screen.sh permanent
