@@ -1,0 +1,1 @@
+dd if=/dev/random bs=1 count=64 2>/dev/null | base64 -w 100 | tr '+/' '-_'
